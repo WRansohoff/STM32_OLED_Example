@@ -3,6 +3,7 @@
 
 // Project includes.
 #include "global.h"
+#include "peripherals.h"
 #include "util.h"
 
 #endif

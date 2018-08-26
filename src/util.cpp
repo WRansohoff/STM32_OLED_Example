@@ -870,8 +870,8 @@ void oled_draw_letter_i(int x, int y, int ic,
  * Draw a string of text.
  * Careful; this assumes the text is a C-string ending in '\0'.
  */
-void oled_draw_text(int x, int y, char* cc,
-                    unsigned char color, char size) {
+void oled_draw_text(int x, int y, const char* cc,
+                    unsigned char color, const char size) {
   int i = 0;
   int offset = 0;
   while (cc[i] != '\0') {

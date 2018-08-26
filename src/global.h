@@ -14,9 +14,11 @@
   #include "stm32l0xx.h"
 #endif
 
-// FreeRTOS includes.
-#include "FreeRTOS.h"
-#include "task.h"
+extern "C" {
+  // FreeRTOS includes.
+  #include "FreeRTOS.h"
+  #include "task.h"
+}
 
 // ----------------------
 // Global variables and defines.
