@@ -13,3 +13,9 @@ const    int      led_delay = 500;
 #endif
 // Core system clock speed; initial value depends on the chip.
 volatile uint32_t core_clock_hz = 8000000;
+
+// Peripheral structs.
+// I2C1 interface.
+pI2C     i2c1;
+// SSD1306 OLED display.
+pSSD1306 oled;

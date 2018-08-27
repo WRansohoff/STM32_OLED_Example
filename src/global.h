@@ -20,6 +20,13 @@ extern "C" {
   #include "task.h"
 }
 
+// Forward declarations.
+class pI2C;
+class pSSD1306;
+
+// Project includes.
+#include "peripherals.h"
+
 // ----------------------
 // Global variables and defines.
 #ifdef VVC_F1
@@ -47,6 +54,10 @@ extern const    int      led_delay;
 extern volatile uint8_t oled_fb[OLED_FB_SIZE];
 // Buffer for drawing lines of text to the OLED.
 //static char oled_line_buf[24];
+
+// Peripheral structs.
+extern pI2C     i2c1;
+extern pSSD1306 oled;
 
 // Define a simple monospace font; each character is 6x8 pixels,
 // which comes out to 6 bytes or 3 words for every 2 characters.

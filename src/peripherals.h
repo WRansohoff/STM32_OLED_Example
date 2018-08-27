@@ -109,42 +109,43 @@ private:
 /*
  * Class for an SSD1306 OLED display.
  */
+#define OLED_MAX_FB_SIZE ((128*64)/8)
 class pSSD1306 {
 public:
   pSSD1306();
   pSSD1306(pI2C* i2c_interface, int display_w, int display_h);
 
-  virtual void init_display() = 0;
-  virtual void stream_fb() = 0;
+  // Display control methods.
+  void init_display();
+  void stream_fb();
 
-  int w, h;
+  // Drawing methods.
+  // These write to the framebuffer and don't draw to the display.
+  void draw_h_line(int x, int y, int w, unsigned char color);
+  void draw_v_line(int x, int y, int h, unsigned char color);
+  void draw_rect(int x, int y, int w, int h,
+                 int outline, unsigned char color);
+  void draw_pixel(int x, int y, unsigned char color);
+  void draw_letter(int x, int y, uint32_t w0, uint32_t w1,
+                   unsigned char color, char size);
+  void draw_letter_c(int x, int y, char c,
+                     unsigned char color, char size);
+  void draw_letter_i(int x, int y, int ic,
+                     unsigned char color, char size);
+  void draw_text(int x, int y, const char* cc,
+                 unsigned char color, const char size);
+
+  int oled_w;
+  int oled_h;
 protected:
   pI2C*  i2c;
   uint8_t status;
+  // TODO: Better way of sizing the framebuffer.
+  volatile uint8_t framebuffer[OLED_MAX_FB_SIZE];
 
   void write_command_byte(uint8_t cmd);
   void write_data_byte(uint8_t dat);
-  virtual volatile uint8_t* get_fb() = 0;
 private:
-};
-
-/*
- * To avoid dynamic memory allocation, and since there are
- * only like 3 different resolutions, just make separate
- * subclasses for different resolutions / framebuffer sizes.
- * TODO: Resolutions other than 128x64.
- */
-#define SSD1306_128x64_FB_SIZE (128*64)/8
-class pSSD1306_128x64 : public pSSD1306 {
-public:
-  pSSD1306_128x64();
-  pSSD1306_128x64(pI2C* i2c_interface);
-  virtual void init_display();
-  virtual void stream_fb();
-protected:
-  virtual volatile uint8_t* get_fb() { return framebuffer; }
-private:
-  volatile uint8_t framebuffer[SSD1306_128x64_FB_SIZE];
 };
 
 #endif

@@ -77,6 +77,7 @@ CPPFLAGS += -Os
 CPPFLAGS += -fmessage-length=0 -fno-common
 CPPFLAGS += -ffunction-sections -fdata-sections
 CPPFLAGS += -fno-exceptions
+CPPFLAGS += -fno-rtti
 CPPFLAGS += -D$(ST_MCU_DEF)
 CPPFLAGS += -DVVC_$(MCU_CLASS)
 CPPFLAGS += -DVVC_$(MCU)
@@ -95,6 +96,7 @@ else
 endif
 LFLAGS += -Wall
 LFLAGS += --static
+LFLAGS += -nostdlib
 LFLAGS += -Wl,-Map=$(TARGET).map
 LFLAGS += -Wl,--gc-sections
 LFLAGS += -lgcc
